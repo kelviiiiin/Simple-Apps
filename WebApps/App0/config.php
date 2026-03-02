@@ -1,5 +1,9 @@
-// Link between my code and the MySQL server
 <?php
+// Throw errors for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Define db credentials
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', '******');

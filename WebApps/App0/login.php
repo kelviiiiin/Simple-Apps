@@ -1,11 +1,15 @@
-// The login logic
 <?php
+// Throw errors for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Start the session and include connection
 session_start();
 require_once "config.php";
 
 // Check if the form was submitted
-if ($_SERVER["REQUEST_METHOD" == "POST"]) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
