@@ -1,0 +1,1 @@
+This is a simple authenticating and session handling web application
