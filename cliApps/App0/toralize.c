@@ -1,10 +1,29 @@
 /* toralize.c */
 #include "toralize.h"
 
+// Request function with the data we wanna send
+Req *request(const char *dstip, const int dstport) {
+    Req *req;
+
+    req = malloc(reqsize);
+
+    req->vn = 4;
+    req->cd = 1;
+    req->dstport = htons(dstport);
+    req->dstip = inet_addr(dstip);
+    strncpy(req->userid, USERNAME, 8);
+
+    return req;
+}
+
 int main(int argc, char *argv[]) {
     char *host;
     int port, s;
     struct sockaddr_in sock;
+    Req *req;
+    Res *res;
+    char buf[ressize];
+    int success;
     
     // Ensure required number of args
     if (argc < 3) {
@@ -33,7 +52,33 @@ int main(int argc, char *argv[]) {
     }
 
     printf("Connected to proxy\n");
+    req = request(host, port); // req points to our packet
+    write(s, req, reqsize); // send packet to proxy
+
+    // Receive response
+    memset(buf, 0, ressize);
+    if (read(s, buf, ressize) < 1) {
+        perror("read");
+        free(req);
+        close(s);
+
+        return -1;
+    }
+    res = (Res *)buf;
+    success = (res->cd == 90);
+    if (!success) {
+        fprintf(stderr, "Unable to traverse the proxy, error code: %d\n", res->cd);
+
+        close(s);
+        free(req);
+
+        return -1;
+    }
+    printf("Successfully connected through the proxy to "
+        "%s:%d\n", host, port);
+
     close(s);
+    free(req);
 
     return 0;
 }
