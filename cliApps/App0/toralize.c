@@ -82,6 +82,7 @@ int main(int argc, char *argv[]) {
     snprintf(tmp, 511,
         "HEAD / HTTP/1.1\r\n"
         "Host: www.networktechnology.org\r\n"
+        "\r\n"
     );
     write(s, tmp, strlen(tmp));
 
