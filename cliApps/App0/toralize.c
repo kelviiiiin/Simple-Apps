@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     Res *res;
     char buf[ressize];
     int success;
+    char tmp[512];
     
     // Ensure required number of args
     if (argc < 3) {
@@ -75,8 +76,19 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     printf("Successfully connected through the proxy to "
-        "%s:%d\n", host, port);
+    "%s:%d\n", host, port);
+    
+    memset(tmp, 0, 512);
+    snprintf(tmp, 511,
+        "HEAD / HTTP/1.1\r\n"
+        "Host: www.networktechnology.org\r\n"
+    );
+    write(s, tmp, strlen(tmp));
 
+    memset(tmp, 0, 512);
+    read(s, tmp, 511);
+    printf("'%s'\n", tmp);
+    
     close(s);
     free(req);
 
