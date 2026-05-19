@@ -51,13 +51,11 @@ socklen_t addrlen) {
     sock.sin_addr.s_addr = inet_addr(PROXY);
 
     if (p(s, (struct sockaddr *)&sock, sizeof(sock))) {
-        perror("connect");
-
         return -1;
     }
 
     printf("Connected to proxy\n");
-    req = request((struct sockaddr_in*)&sock2); // req points to our packet
+    req = request((struct sockaddr_in*)sock2); // req points to our packet
     write(s, req, reqsize); // send packet to proxy
 
     // Receive response
@@ -79,8 +77,7 @@ socklen_t addrlen) {
 
         return -1;
     }
-    printf("Successfully connected through the proxy to "
-    "%d:%d\n", req->dstip, ntohs(req->dstport));
+    printf("Successfully connected through the proxy.\n");
     
     dup2(s, s2); // redirect the socket to the original fd
     free(req);
