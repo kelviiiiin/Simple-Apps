@@ -1,7 +1,7 @@
 all: example arcfour
 
-example: example.o
-	gcc example.o -o example -O2 -Wall
+example: example.o arcfour.o
+	gcc arcfour.o example.o -o example -O2 -Wall
 
 example.o: example.c
 	gcc -c -O2 -Wall example.c

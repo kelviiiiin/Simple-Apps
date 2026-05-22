@@ -1,4 +1,5 @@
 /* arcfour.h */
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -8,14 +9,16 @@
 
 #define rc4decrypt(x,y)     rc4encrypt(x,y);
 
-struct s_arcfour {
-    // 
-};
-
-typedef struct s_arcfour Arcfour;
 typedef unsigned char int8;
 typedef unsigned short int16;
 typedef unsigned int int32;
+
+struct s_arcfour {
+    int16 i, j, k;
+    int8 s[256];
+};
+
+typedef struct s_arcfour Arcfour;
 
 Arcfour *rc4init(int8*, int16);
 int8 rc4byte(void); // Produces one byte of encrypted text
