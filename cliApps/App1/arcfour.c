@@ -46,3 +46,21 @@ Arcfour *rc4init(int8 *key, int16 size) {
 
     return p;
 }
+
+int8 rc4byte(Arcfour *p) {
+    int16 tmp1, tmp2;
+    p->i = (p->i + 1) % 256;
+    p->j = (p->j + p->s[p->i]) % 256;
+
+    tmp1 = p->s[p->i];
+    tmp2 = p->s[p->j];
+
+    p->s[p->i] = tmp2;
+    p->s[p->j] = tmp1;
+
+    tmp1 = (p->s[p->i] + p->s[p->j]) % 256;
+
+    p->k = p->s[tmp1];
+
+    return p->k;
+}

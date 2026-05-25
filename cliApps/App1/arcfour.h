@@ -21,5 +21,5 @@ struct s_arcfour {
 typedef struct s_arcfour Arcfour;
 
 Arcfour *rc4init(int8*, int16);
-int8 rc4byte(void); // Produces one byte of encrypted text
+int8 rc4byte(Arcfour*); // Produces one byte of encrypted text
 int8 *rc4encrypt(int8*, int16);
