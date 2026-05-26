@@ -39,8 +39,8 @@ int main() {
     printf("done\n");
 
     printf("'%s\n ->'", from);
-    // encrypted = rc4encrypt(from, stext);
-    printbin(rc4->s, skey);
+    encrypted = rc4encrypt(from, stext, sizeof(stext));
+    printbin(encrypted, stext);
 
     return 0;
 }
