@@ -29,7 +29,7 @@ int main() {
 
     key = "tomatoes";
     skey = strlen(key);
-    from = "Shall I compare thee to a summer's day?";
+    from = "Ohhhhh baby I love your waist!";
     stext = strlen(from);
 
     printf("Initializing encryption..."); F;
