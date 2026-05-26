@@ -8,7 +8,7 @@
 #include <errno.h>
 
 #define export  __attribute__((visibility("default")))
-#define rc4decrypt(x,y)     rc4encrypt(x,y);
+#define rc4decrypt(x,y,z)     rc4encrypt(x,y,z);
 #define rc4uninit(x)    free(x)
 
 typedef unsigned char int8;
